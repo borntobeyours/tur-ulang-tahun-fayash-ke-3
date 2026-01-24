@@ -21,14 +21,32 @@ const App: React.FC = () => {
   };
 
   // Auto-play attempt (often blocked by browsers until interaction, but good to try)
+  // Auto-play attempt
   useEffect(() => {
+    // Try sending play command immediately
+    if (audioRef.current) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.log("Auto-play prevented (browser policy). Waiting for interaction.");
+          });
+      }
+    }
+
+    // Fallback: Play on first interaction
     const handleFirstClick = () => {
-      if (audioRef.current && !isPlaying) {
-        audioRef.current.play().catch(() => {});
-        setIsPlaying(true);
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play()
+          .then(() => setIsPlaying(true))
+          .catch((e) => console.log("Play failed:", e));
       }
       document.removeEventListener('click', handleFirstClick);
     };
+
     document.addEventListener('click', handleFirstClick);
     return () => document.removeEventListener('click', handleFirstClick);
   }, []);
@@ -36,7 +54,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-deep-stage text-white selection:bg-huntr-pink selection:text-white">
       {/* Background Music - Ganti src dengan link MP3 K-Pop instrumental pilihan Anda */}
-      <audio ref={audioRef} loop src="https://assets.mixkit.co/music/preview/mixkit-tech-house-ibiza-sunset-131.mp3" />
+      <audio ref={audioRef} autoPlay loop src="https://static.wikia.nocookie.net/international-entertainment-project/images/3/31/KPop_Demon_Hunters_-_Golden_%28English%29.mp3/revision/latest?cb=20250720011643" />
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b-0">
@@ -44,10 +62,10 @@ const App: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0 flex items-center gap-2">
               <span className="font-orbitron font-black text-xl text-white tracking-widest italic">
-                HUNTR<span className="text-huntr-pink">/</span>X
+                FAYASH<span className="text-huntr-pink">/</span>3
               </span>
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden lg:block">
               <div className="ml-10 flex items-baseline space-x-1">
@@ -58,7 +76,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Mobile Music Toggle */}
-            <button 
+            <button
               onClick={toggleMusic}
               className={`p-2 rounded-full border transition-all ${isPlaying ? 'border-huntr-pink text-huntr-pink shadow-[0_0_10px_rgba(244,114,182,0.5)]' : 'border-gray-600 text-gray-400'}`}
             >
