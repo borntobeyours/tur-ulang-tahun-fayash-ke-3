@@ -53,7 +53,7 @@ const App: React.FC = () => {
         loop
         playsInline
         preload="auto"
-        src="https://static.wikia.nocookie.net/international-entertainment-project/images/3/31/KPop_Demon_Hunters_-_Golden_%28English%29.mp3/revision/latest?cb=20250720011643"
+        src="/song.mp3"
       />
 
       {showSplash ? (
