@@ -105,10 +105,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
                     <div className="absolute inset-0 rounded-full border-2 border-huntr-pink/50 animate-ping opacity-75" />
                 </button>
 
-                {/* Hint text */}
-                <p className="mt-8 font-rajdhani text-sm text-gray-500 animate-pulse">
-                    🎵 Musik akan langsung diputar 🎵
-                </p>
+
             </div>
 
             {/* Bottom decoration */}
