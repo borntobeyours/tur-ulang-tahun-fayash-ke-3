@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//etc/ravenops/**)",
+      "Bash(curl -sk -H \"X-Vault-Token: $\\(cat /etc/ravenops/vault-token\\)\" https://vault.internal.oh-my.dev/v1/sys/mounts)",
+      "Bash(curl -sk -H \"X-Vault-Token: $\\(cat /etc/ravenops/vault-token\\)\" \"https://vault.internal.oh-my.dev/v1/kv/metadata/?list=true\")"
+    ]
+  }
+}

@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+dev.env
+prod.env
+.last-build
